@@ -1,0 +1,41 @@
+{
+  "titleNView": {
+    "type": "transparent",
+    "searchInput": {
+      "backgroundColor": "rgba(231, 231, 231,.7)",
+      "borderRadius": "16px",
+      "placeholder": "一站式囤生活好物",
+      "disabled": true,
+      "placeholderColor": "#606266"
+    },
+    "buttons": [
+      {
+        "fontSrc": "/static/iconfont.ttf",
+        "text": "",
+        "fontSize": "26",
+        "color": "#303133",
+        "float": "left",
+        "background": "rgba(0,0,0,0)"
+      },
+      {
+        "fontSrc": "/static/iconfont.ttf",
+        "text": "",
+        "fontSize": "27",
+        "color": "#303133",
+        "background": "rgba(0,0,0,0)",
+        "float": "right"
+      },
+      {
+        "fontSrc": "/static/iconfont.ttf",
+        "text": "",
+        "fontSize": "27",
+        "color": "#303133",
+        "background": "rgba(0,0,0,0)"
+      }
+    ]
+  },
+  "usingComponents": {
+    "uni-grid": "/components/uni-grid/uni-grid",
+    "uni-grid-item": "/components/uni-grid-item/uni-grid-item"
+  }
+}

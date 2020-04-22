@@ -2,6 +2,53 @@
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/home/home",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "京东超市",
+				//"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent",
+						"searchInput": {
+							"backgroundColor": "rgba(231, 231, 231,.7)",
+							"borderRadius": "16px",
+							"placeholder": "一站式囤生活好物",
+							"disabled": true,
+							"placeholderColor": "#606266"
+						},
+						"buttons": [{
+								"fontSrc": "/static/iconfont.ttf",
+								"text": "\ue653",
+								"fontSize": "26",
+								"color": "#303133",
+								"float": "left",
+								"background": "rgba(0,0,0,0)"
+							},
+							{
+								"fontSrc": "/static/iconfont.ttf",
+								"text": "\ue66a",
+								"fontSize": "27",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)",
+								"float": "right"
+
+							},
+							{
+								"fontSrc": "/static/iconfont.ttf",
+								"text": "\ue662",
+								"fontSize": "27",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+
+							}
+						]
+					}
+				}
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {}
 		},
@@ -101,21 +148,22 @@
 			"path": "pages/plugin/verticalnav",
 			"style": {}
 		}
+
+		, {
+			"path": "pages/detail/detail",
+			"style": {}
+		}, {
+			"path": "pages/order/order",
+			"style": {}
+		}, {
+			"path": "pages/pay/pay",
+			"style": {}
+		}
 	    ,{
-            "path" : "pages/home/home",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/detail/detail",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/order/order",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/pay/pay",
-            "style" : {}
+            "path" : "pages/web-view/web-view",
+            "style" : {
+				"navigationBarTitleText":"京东超市"
+			}
         }
     ],
 	"globalStyle": {
@@ -124,20 +172,12 @@
 			"transparentTitle": "always",
 			"allowsBounceVertical": "NO"
 		},
-		"navigationBarBackgroundColor": "#0081ff",
+		"navigationBarBackgroundColor": "#FFFFFF",
 		"navigationBarTitleText": "ColorUi for UniApp",
-		"navigationStyle": "custom",
-		"navigationBarTextStyle": "white"
+		// "navigationStyle": "custom",
+		"navigationBarTextStyle": "black"
 	},
-	"usingComponts": true,
-		"condition": { //模式配置，仅开发期间生效
-		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [{
-				"name": "表单", //模式名称
-				"path": "pages/component/form", //启动页面
-				"query": "" //启动参数
-			}
-		]
-	}
+	"usingComponts": true
+
 
 }

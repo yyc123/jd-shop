@@ -118,7 +118,9 @@
 <style>
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
-
+    @import "common/iconfont.css";
+	@import "common/uni.css";
+	
 	.nav-list {
 		display: flex;
 		flex-wrap: wrap;
