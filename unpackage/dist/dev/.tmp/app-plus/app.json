@@ -30,7 +30,8 @@
     "pages/detail/detail",
     "pages/order/order",
     "pages/pay/pay",
-    "pages/web-view/web-view"
+    "pages/web-view/web-view",
+    "pages/order/address/address"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFFFFF",

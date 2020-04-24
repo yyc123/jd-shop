@@ -151,18 +151,54 @@
 
 		, {
 			"path": "pages/detail/detail",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "详情",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent",
+						"buttons": [{
+							"type": "share"
+						}]
+					}
+				},
+				"h5": {
+					"titleNView": {
+						"type": "transparent",
+						"buttons": []
+					}
+				}
+			}
 		}, {
 			"path": "pages/order/order",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "填写订单"
+			}
 		}, {
 			"path": "pages/pay/pay",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "京东收银台"
+			},
+			"titleNView": {
+				"buttons": [{
+						"text": "订单中心",
+						"fontSize": "14px",
+						"color": "#303133",
+						"float": "right"
+					}
+
+				]
+			}
+
+		}, {
+			"path": "pages/web-view/web-view",
+			"style": {
+				"navigationBarTitleText": "京东超市"
+			}
 		}
 	    ,{
-            "path" : "pages/web-view/web-view",
+            "path" : "pages/order/address/address",
             "style" : {
-				"navigationBarTitleText":"京东超市"
+				"navigationBarTitleText":"选择收货地址"
 			}
         }
     ],

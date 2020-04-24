@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "京东收银台",
+  "usingComponents": {
+    "uni-countdown": "/components/uni-countdown/uni-countdown"
+  }
 }

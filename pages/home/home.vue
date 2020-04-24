@@ -414,7 +414,7 @@
 			//前往商品详情
 			goProductDetail() {
 				uni.navigateTo({
-					url: '../detail/detail'
+					 url: '../detail/detail'
 				})
 			},
 			cardSwiper(e) {
