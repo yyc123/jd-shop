@@ -192,7 +192,6 @@
 			},
 			RadioChange2(e) {
 				this.billTitle = e.detail.value
-
 				this.hideModal();
 			},
 			action(e) {
@@ -203,14 +202,12 @@
 
 				} else if (e === 2) {
 					this.$api.msg('无可用礼品卡')
-
 				}
 			},
 			//提交订单
 			submit() {
 				uni.navigateTo({
 					url: '../pay/pay'
-
 				})
 			}
 		}

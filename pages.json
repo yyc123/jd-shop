@@ -157,14 +157,20 @@
 					"titleNView": {
 						"type": "transparent",
 						"buttons": [{
-							"type": "share"
+							"type": "menu"
+						},{
+							"type":"share"
 						}]
 					}
 				},
 				"h5": {
 					"titleNView": {
 						"type": "transparent",
-						"buttons": []
+						"buttons": [{
+							"type": "menu"
+						},{
+							"type":"share"
+						}]
 					}
 				}
 			}

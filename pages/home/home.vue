@@ -9,7 +9,7 @@
 
 		<!-- 头部轮播 -->
 		<view class="carousel-section">
-			<swiper class="carousel" circular indicator-dots @change="swiperChange" autoplay="true">
+			<swiper class="carousel" circular  @change="swiperChange" autoplay="true">
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage(item.jump.params)">
 					<image :src="item.pictureUrl" />
 				</swiper-item>

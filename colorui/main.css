@@ -1258,7 +1258,8 @@ button.cuIcon.lg {
 }
 
 .cu-list.menu-avatar>.cu-item .action view+view {
-	margin-top: 10upx
+	margin-top: 10upx;
+
 }
 
 .cu-list.menu-avatar.comment>.cu-item .content {
