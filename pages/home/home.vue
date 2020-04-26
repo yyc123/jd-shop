@@ -48,20 +48,24 @@
 		<!-- 优惠券 -->
 		<view class="grid" :class="['col-3','no-border']">
 			<view class="cu-item padding-xs" v-for="(item,index) in couponsList" :key="index" v-if="index<3*2" @tap="getcoupons">
-				<view class="bg-orange padding-xs">
-					<view class="text-sm">
-						优惠券
-					</view>
-					<view class="text-xl ">
-						{{item.discountType==0?'¥'+item.discount:item.discount+'折'}}
-					</view>
-					<!-- <view class="text-xs">
+				<view class="bg-gradual-orange padding-xs flex align-center">
+					<view class="left">
+					
+						<view class="text-xl ">
+							{{item.discountType==0?'¥'+item.discount:item.discount+'折'}}
+						</view>
+						<text class="text-xs ">满{{item.quota}}可用</text>
+						
+						<!-- <view class="text-xs">
 						{{item.limitStr}}
 					</view> -->
-					<view class="limitStr">
-						<text class="text-xs ">{{item.limitStr}}</text>
+						<view class="limitStr">
+							<text class="text-xs ">{{item.limitStr}}</text>
+						</view>
 					</view>
-					<text class="text-sm">立即领取</text>
+					<view class="right">
+						<text class="text-sm">立即领取</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -773,5 +777,9 @@
 			position: absolute;
 			z-index: 2;
 		}
+	}
+	.right {
+		width: 20px;
+		line-height: 1.1;
 	}
 </style>
