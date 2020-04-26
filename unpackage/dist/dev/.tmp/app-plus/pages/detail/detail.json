@@ -4,9 +4,15 @@
     "type": "transparent",
     "buttons": [
       {
+        "type": "menu"
+      },
+      {
         "type": "share"
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-rate": "/components/uni-rate/uni-rate",
+    "uni-number-box": "/components/uni-number-box/uni-number-box"
+  }
 }

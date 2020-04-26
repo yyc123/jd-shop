@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "填写订单",
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-number-box": "/components/uni-number-box/uni-number-box"
+  }
 }

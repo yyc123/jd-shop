@@ -111,7 +111,7 @@
 
 		},
 		onLoad(options) {
-			// this.payMoney = options.money;
+			 this.payMoney = options.money.toString();
 		},
 
 		methods: {
@@ -125,8 +125,9 @@
 				// 	url: '/pages/money/paySuccess'
 				// })
 				uni.showModal({
-					title: '支付成功',
+					title: '支付结果',
 					showCancel: false,
+					content:'成功',
 					success: function(res) {
 						if (res.confirm) {
 							uni.navigateBack({

@@ -4,7 +4,7 @@
 		<view class="goods-show">
 			<swiper class="swiper" circular autoplay="true" @change="swiperChange">
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item">
-					<image :src="item.big" />
+					<image :src="(item.big).split('!')[0]" />
 				</swiper-item>
 			</swiper>
 			<!-- 自定义swiper指示器 -->
@@ -22,12 +22,12 @@
 			<text class="price">{{productInfo.priceInfo?productInfo.priceInfo.jprice:''}}</text>
 
 			<view class="flex margin-right-sm">
-				<view class="flex-direction text-center ">
+				<view class="flex-direction text-center" @click="notice">
 					<text class="cuIcon-recharge block " style="margin-bottom: -5px;"></text>
 					<text class="text-xs">降价通知</text>
 				</view>
-				<view class="flex-direction margin-lr text-center">
-					<text class="cuIcon-like block" style="margin-bottom: -5px;"></text>
+				<view class="flex-direction margin-lr text-center" @click="collect">
+					<text class=" block " :class="this.isCollect?'text-red cuIcon-likefill':'cuIcon-like'" style="margin-bottom: -5px;"></text>
 					<text class="text-xs">收藏</text>
 				</view>
 			</view>
@@ -54,7 +54,6 @@
 					<text>优惠</text>
 				</view>
 				<view class="discounts-right">
-
 					<view class="flex" style="height: 60rpx;" v-for="(item,index) in couponInfo" :key='index'>
 						<view class=' cu-tag bg-gradual-orange   text-xs margin-right-sm'>{{item.text}}</view>
 						<view class="margin-right-sm singleLine">
@@ -66,7 +65,7 @@
 				</view>
 			</view>
 
-			<view class="discounts flex solid-top align-center">
+			<view class="discounts flex solid-top align-center" @click="showModal" data-target="bottomModal2">
 				<view class="discounts-left text-bold ">
 					<text>活动</text>
 				</view>
@@ -84,12 +83,12 @@
 		</view>
 
 		<view class="margin-top-sm  bg-white padding solid-bottom">
-			<view class="discounts flex cu-bar">
+			<view class="discounts flex cu-bar" @click="showModal" data-target="bottomModal">
 				<view class="discounts-left text-bold ">
 					<text>已选</text>
 				</view>
 				<view class="discounts-right ">
-					<text>{{currentSelectedText}}</text>
+					<text>{{currentSelectedText}} {{buyNum}}件</text>
 					<text class="cuIcon-more right-more"></text>
 
 				</view>
@@ -110,6 +109,42 @@
 				</view>
 			</view>
 		</view>
+		<!-- 底部弹出菜单栏 -->
+		<view class=" cu-modal bottom-modal" :class="modalName=='bottomModal'?'show':''">
+			<view class="cu-dialog bg-white">
+				<view class="text-left padding">
+					<text class="text-bold">口味</text>
+					<view class="flex  justify-start align-center padding">
+						<button @click="changeSKU(index)" v-for="(item,index) in colorSizeInfoButtons" :key="index" :class="index==selectedSKU? 'bg-red':''"
+						 class="round  cu-btn sm margin-right-sm">{{item.text}}</button>
+					</view>
+
+					<text class="text-bold">数量</text>
+					<uni-number-box :min="0" :max="9" @change='changeNum'></uni-number-box>
+				</view>
+				<view class="padding flex flex-direction">
+					<button class="bg-red round cu-btn margin-lr-xs lg" @click="hideModal">确定</button>
+				</view>
+			</view>
+		</view>
+		<!-- 底部弹出菜单栏2 -->
+		<view class=" cu-modal bottom-modal" :class="modalName=='bottomModal2'?'show':''">
+			<view class="cu-dialog ">
+				<view class=" active-content padding">
+					<view class="cu-bar" v-for="(item,index) in activeInfo" :key='index'>
+						<image :src="item.icon" mode=""></image>
+						<view class="margin-left-sm singleLine">
+							<text class="text-sm">{{item.desc}}</text>
+						</view>
+						<text class="cuIcon-right"></text>
+
+					</view>
+				</view>
+				<view class="padding flex flex-direction">
+					<button class="bg-red round cu-btn margin-lr-xs lg" @click="hideModal">确定</button>
+				</view>
+			</view>
+		</view>
 		<!-- 服务标签 -->
 		<view class="  serve-tag bg-white padding-lr">
 			<view v-for="(item,index) in serveTags" :key="index" class="serve-tag-item">
@@ -126,12 +161,12 @@
 		</view>
 
 		<!-- 评价 -->
-		<view class="margin-top cu-bar padding-lr bg-white">
+		<view class="margin-top cu-bar padding-lr bg-white" @click="goCommentList">
 			<view class="">
-				<text>评价({{123}})</text>
+				<text>评价({{productCommentData.allCntStr}})</text>
 			</view>
 			<view class="">
-				<text>好评度{{99}}</text>
+				<text>好评度{{productCommentData.goodRate}}</text>
 				<text class="cuIcon-right"></text>
 			</view>
 		</view>
@@ -140,22 +175,31 @@
 				<text class=" bg-gradual-orange text-black round cu-tag text-xs margin-lr-xs margin-bottom-sm">{{item.name}}</text>
 			</view>
 		</view>
-		<view class="bg-white padding-bottom-xs">
-			<view v-for="(item,index) in productCommentData.commentInfoList" :key="index" class=" margin-bottom padding">
+		<view class="bg-white ">
+			<view v-for="(item,index) in productCommentData.commentInfoList" :key="index" class=" margin-bottom padding solid-bottom">
 				<view class="text-xs">
-					<view class="user-comment">
+					<view class="user-comment flex align-center">
 						<view class="cu-avatar round margin-right-sm" :style="'background-image:url('+item.userImgURL+');'">
 							<!-- <image :src="i" mode=""></image> -->
 						</view>
-
-
-						<text>{{item.userNickName}}</text>
+						<view>
+							<text>{{item.userNickName}}</text>
+							<!-- 自定义星星大小 -->
+							<uni-rate disabled='false' size="14" :value="item.commentScore" margin='1' class="margin-top-xs"></uni-rate>
+						</view>
 					</view>
-					<text>{{item.commentData}}</text>
+					<text class="margin-top-xs">{{item.commentData}}</text>
+					<scroll-view class="bg-white" scroll-x>
+						<view class="flex">
+							<view v-for="(pictureItem, index2) in item.pictureInfoList" :key="index2" class="floor-item">
+								<image :src="pictureItem.picURL" mode="aspectFill"></image>
+							</view>
+						</view>
+					</scroll-view>
 				</view>
 			</view>
-			<view class="flex justify-center bg-white ">
-				<button style="cu-btn round " size="mini">{{productCommentData.commentButtonText}}</button>
+			<view class="flex justify-center bg-white">
+				<button @click="goCommentList" style="cu-btn round " size="mini">{{productCommentData.commentButtonText}}</button>
 			</view>
 		</view>
 
@@ -191,16 +235,16 @@
 		<!-- 底部栏 -->
 		<view class="bottom-bar">
 			<view class="cu-bar bg-white tabbar border shop ">
-				<button class="action">
+				<button class="action" @click="goShop">
 					<view class="cuIcon-shop" style="margin-bottom: -5px;">
 					</view>
 					<text>店铺</text>
 				</button>
-				<button class="action">
+				<button class="action" @click="goChat">
 					<view class="cuIcon-service" style="margin-bottom: -5px;">
 					</view> 客服
 				</button>
-				<button class="action">
+				<button class="action" @click="goCar">
 					<view class="cuIcon-cart" style="margin-bottom: -5px;">
 					</view> 购物车
 				</button>
@@ -215,9 +259,18 @@
 </template>
 
 <script>
+	import uniRate from '@/components/uni-rate/uni-rate.vue'
+	import uniNumberBox from "@/components/uni-number-box/uni-number-box.vue"
+
 	export default {
+		components: {
+			uniRate,
+			uniNumberBox
+		},
+
 		data() {
 			return {
+				modalName: '',
 				productDetailData: {},
 				productCommentData: {},
 				//轮播图
@@ -228,14 +281,23 @@
 				productInfo: {},
 				//当前选择的商品属性
 				selectedSKU: 0,
-
+				//购买数量
+				buyNum: 1,
+				isCollect: false,
 			}
 		},
 		onLoad() {
 			this.loadDetailData();
 			this.loadCommentData();
+
+			this.isCollect = getApp().globalData.isCollect;
 		},
 		computed: {
+			//兼容ios上图片不显示bug
+			// spliteImg(url){
+			// 	console.log(url);
+			// 	return url.split('!')[0];
+			// },
 			promotionInfo() {
 				if (!this.productDetailData.floors) {
 					return '';
@@ -247,7 +309,6 @@
 				if (!this.productDetailData.floors) {
 					return '';
 				}
-
 				for (let i in this.productDetailData.floors) {
 					if (this.productDetailData.floors[i].bId === "eCustom_flo_511") {
 						let item = this.productDetailData.floors[i];
@@ -313,12 +374,20 @@
 					}
 				}
 			},
+			//选中的规格
 			currentSelectedText() {
 				if (!this.productInfo.colorSizeInfo) {
 					return '';
 				}
 				return this.productInfo.colorSizeInfo.colorSize[0].buttons[this.selectedSKU].text + '    ' + this.productInfo.weightInfo
 					.content;
+			},
+			//规格列表
+			colorSizeInfoButtons() {
+				if (!this.productInfo.colorSizeInfo) {
+					return '';
+				}
+				return this.productInfo.colorSizeInfo.colorSize[0].buttons;
 			},
 			//服务标签
 			serveTags() {
@@ -378,10 +447,24 @@
 				const index = e.detail.current;
 				this.swiperCurrent = index;
 			},
+			changeSKU(index) {
+				this.selectedSKU = index;
+			},
+			changeNum(e) {
+				this.buyNum = e;
+			},
 			//进入订单
 			order() {
+
+				let selectInfo = {};
+				selectInfo['num'] = this.buyNum;
+				selectInfo['SKU'] = this.colorSizeInfoButtons[this.selectedSKU];
+				let dataInfo = {
+					'productInfo': this.productInfo,
+					'selectInfo': selectInfo
+				};
 				uni.navigateTo({
-					url: '../order/order'
+					url: '../order/order?dataInfo=' + encodeURIComponent(JSON.stringify(dataInfo))
 				})
 			},
 			//加入购物车
@@ -393,8 +476,66 @@
 				uni.navigateTo({
 					url: '../web-view/web-view?url=' + url
 				})
-			}
+			},
+			//客服
+			goChat() {
+				uni.navigateTo({
+					url: '../component/chat'
+				})
+			},
+			//店铺
+			goShop() {
+				let url =
+					'https://shop.m.jd.com/shopv2/mzpage?shopId=1000083686&venderId=1000083686&skuId=3091062&categoryId=1320_1583_1591&sceneval=2';
+				uni.navigateTo({
+					url: '../web-view/web-view?url=' + url
+				})
+			},
+			//购物车
+			goCar() {
+				this.$api.msg('进入购物车')
+
+			},
+			showModal(e) {
+				this.modalName = e.currentTarget.dataset.target
+			},
+			hideModal(e) {
+				this.modalName = null
+			},
+			notice() {
+				this.$api.msg('降价将会通知您')
+
+			},
+			//收藏
+			collect() {
+				this.isCollect = !this.isCollect;
+				console.log(getApp().globalData.isCollect);
+				getApp().globalData.isCollect = this.isCollect;
+			},
+			//评论列表
+			goCommentList() {
+				this.$api.msg('跳转评论列表')
+
+			},
+			goQuestionandAnswer() {
+				this.$api.msg('跳转问答列表')
+
+			},
+			// #ifndef MP
+
+			//点击导航栏 buttons 时触发
+			onNavigationBarButtonTap(e) {
+				const index = e.index;
+				if (index === 0) {
+					this.$api.msg('点击更多');
+
+				} else if (index === 1) {
+					this.$api.msg('分享');
+				}
+			},
+			// #endif
 		}
+
 	}
 </script>
 
@@ -547,5 +688,17 @@
 
 	.serve-tag-item {
 		display: inline-block;
+	}
+
+	.floor-item {
+		width: 250upx;
+		margin-right: 20upx;
+
+		image {
+			width: 250upx;
+			height: 250upx;
+			border-radius: 6upx;
+		}
+
 	}
 </style>

@@ -1,0 +1,143 @@
+@charset "UTF-8";
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+.goods-show {
+  width: 100%;
+  height: 750rpx;
+  position: relative;
+}
+.swiper {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+.swiper image {
+    width: 100%;
+    height: 100%;
+}
+.swiper-dots {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: absolute;
+  right: 10rpx;
+  bottom: 15rpx;
+  width: 72rpx;
+  height: 36rpx;
+  background-size: 100% 100%;
+  background-color: gray;
+}
+.swiper-dots .num {
+    width: 36rpx;
+    height: 36rpx;
+    border-radius: 50px;
+    font-size: 24rpx;
+    color: #fff;
+    text-align: center;
+    line-height: 36rpx;
+}
+.swiper-dots .sign {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    line-height: 36rpx;
+    font-size: 12rpx;
+    color: #fff;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+.promotionInfo {
+  width: 100%;
+  height: 100rpx;
+}
+.promotionInfo image {
+    width: 100%;
+    height: 100%;
+}
+.price-box {
+  background-color: #fff;
+  height: 100rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 24rpx;
+  color: #909399;
+}
+.price-box .price {
+    font-size: 50rpx;
+    color: #ff0000;
+    margin-top: 12rpx;
+    margin-left: 12rpx;
+}
+.price-box .price:before {
+      content: '\FFE5';
+      font-size: 40rpx;
+}
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+}
+.iconImg {
+  height: 80rpx;
+  width: 100%;
+}
+.iconImg image {
+    height: 30rpx;
+    width: 90rpx;
+}
+.product-title {
+  line-height: 1.2;
+}
+.discounts {
+  width: 100%;
+}
+.discounts .discounts-left {
+    width: 20%;
+}
+.discounts .discounts-right {
+    width: 80%;
+}
+.discounts .discounts-right .singleLine {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+}
+.active-content image {
+  width: 90rpx;
+  height: 30rpx;
+}
+.right-more {
+  position: absolute;
+  right: 0;
+  top: 30;
+}
+.serve-tag-item {
+  display: inline-block;
+}
+.floor-item {
+  width: 250rpx;
+  margin-right: 20rpx;
+}
+.floor-item image {
+    width: 250rpx;
+    height: 250rpx;
+    border-radius: 6rpx;
+}
+

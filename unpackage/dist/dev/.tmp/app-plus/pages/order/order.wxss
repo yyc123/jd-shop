@@ -122,4 +122,12 @@
     background-color: red;
     border-radius: 100rpx;
 }
+.goods-info .cu-avatar {
+  width: 30%;
+}
+.goods-info .singleLine {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 

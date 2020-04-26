@@ -49,11 +49,31 @@
 		<view class="cu-list menu margin-tb-sm">
 			<view class="cu-item">
 				<view class="content">
-					<text class="cuIcon-shopfill"></text>
+					<text class="cuIcon-shop"></text>
 					<text class="">{{productInfo.shopTitle}}</text>
 				</view>
 			</view>
+			<view class="goods-info  padding-sm flex bg-white">
+				<view class="cu-avatar  xl   margin-right-sm" :style="'background-image:url('+(productInfo.productInfo.property.chatUrl).split('webp')[0]+');'">
+				</view>
+				<view class="singleLine">
+					<text>{{productInfo.productInfo.wareInfo.name}}</text>
+					<view class="text-xs text-gray">
+						<text>{{productInfo.selectInfo.SKU.text}}</text>
+					</view>
+					<view class="flex justify-between">
+						<view class="">
+							<text class="text-red">￥</text>
+							<text class="text-red text-bold">{{productInfo.productInfo.priceInfo?productInfo.productInfo.priceInfo.jprice:""}}</text>
 
+						</view>
+						<view class="">
+							<uni-number-box :min="1" :max="9" @change='changeNum' :value='productInfo.selectInfo.num'></uni-number-box>
+						</view>
+					</view>
+				</view>
+
+			</view>
 			<view class="cu-bar bg-white " @click="showModal" data-target="distributionway">
 				<view class="action">
 					<text class="">配送</text>
@@ -131,11 +151,15 @@
 			</view>
 		</view>
 
+		<!-- 防止遮挡 -->
+		<view style="height: 100rpx;">
+
+		</view>
 		<!-- 底部 -->
 		<view class="footer">
 			<view class="price-content">
 				<text class="price-tip">￥</text>
-				<text class="price">475</text>
+				<text class="price">{{totalPrice}}</text>
 			</view>
 			<text class="submit" @click="submit">提交订单</text>
 		</view>
@@ -144,7 +168,11 @@
 </template>
 
 <script>
+	import uniNumberBox from "@/components/uni-number-box/uni-number-box.vue"
 	export default {
+		components: {
+			uniNumberBox
+		},
 		data() {
 			return {
 				addressData: {
@@ -155,7 +183,9 @@
 					mobile: "135****1017"
 				},
 				productInfo: {
-					shopTitle: "京东自营"
+					shopTitle: "京东自营",
+					productInfo: {},
+					selectInfo: {}
 				},
 				payway: [
 					"在线支付",
@@ -173,11 +203,24 @@
 				freight: "0.00",
 			}
 		},
+		onLoad(data) {
+			const currentData = JSON.parse(decodeURIComponent(data.dataInfo));
+			this.productInfo.productInfo = currentData.productInfo;
+			const selectInfo = currentData.selectInfo;
+			this.productInfo.selectInfo = selectInfo;
+			console.log(currentData);
+		},
 		computed: {
 			// currentBillType() {
 			// 	return
 			// }
-
+			totalPrice() {
+				if(!this.productInfo.productInfo.priceInfo){
+					return '';
+				}
+				let money = this.productInfo.selectInfo.num * this.productInfo.productInfo.priceInfo.jprice;
+				return money.toFixed(2);
+			}
 		},
 		methods: {
 			showModal(e) {
@@ -204,10 +247,13 @@
 					this.$api.msg('无可用礼品卡')
 				}
 			},
+			changeNum(e) {
+				this.productInfo.selectInfo.num = e;
+			},
 			//提交订单
 			submit() {
 				uni.navigateTo({
-					url: '../pay/pay'
+					url: '../pay/pay?money='+this.totalPrice
 				})
 			}
 		}
@@ -312,6 +358,19 @@
 			font-size: 32upx;
 			background-color: red;
 			border-radius: 100rpx;
+
+		}
+	}
+
+	.goods-info {
+		.cu-avatar {
+			width: 30%;
+		}
+
+		.singleLine {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 
 		}
 	}

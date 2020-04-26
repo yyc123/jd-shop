@@ -9,7 +9,7 @@
 
 		<!-- 头部轮播 -->
 		<view class="carousel-section">
-			<swiper class="carousel" circular  @change="swiperChange" autoplay="true">
+			<swiper class="carousel" circular @change="swiperChange" autoplay="true">
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage(item.jump.params)">
 					<image :src="item.pictureUrl" />
 				</swiper-item>
@@ -23,7 +23,7 @@
 			</view>
 		</view>
 		<!-- 版块入口 -->
-		<swiper :indicator-dots="true" class="square-dot" style="height: 400rpx">
+		<swiper :indicator-dots="true" class="square-dot" style="height: 410rpx">
 			<swiper-item>
 				<view class="cu-list grid" :class="['col-5','no-border']">
 					<view class="cu-item" v-for="(item,index) in sectionList" :key="index" v-if="index<5*2" @tap="navToDetailPage(item.jump.params)">
@@ -48,7 +48,7 @@
 		<!-- 优惠券 -->
 		<view class="grid" :class="['col-3','no-border']">
 			<view class="cu-item padding-xs" v-for="(item,index) in couponsList" :key="index" v-if="index<3*2" @tap="getcoupons">
-				<view class="bg-orange">
+				<view class="bg-orange padding-xs">
 					<view class="text-sm">
 						优惠券
 					</view>
@@ -365,12 +365,13 @@
 						this.sectionList.push(obj);
 					}
 				}
-				let coupons = data.floorList[3].coupons;
+				let coupons = data.floorList[3].data;
 				for (let i = 0; i < coupons.length; i++) {
-					let obj = coupons[i];
-					// console.log(JSON.stringify(obj));
-					this.couponsList.push(obj);
-					console.log(obj.discount);
+					let objs = coupons[i];
+					console.log(objs);
+					for (let j = 0; j < objs.length; j++) {
+						this.couponsList.push(objs[j]);
+					}
 				}
 
 				let obj = data.floorList[4];
@@ -414,7 +415,7 @@
 			//前往商品详情
 			goProductDetail() {
 				uni.navigateTo({
-					 url: '../detail/detail'
+					url: '../detail/detail'
 				})
 			},
 			cardSwiper(e) {

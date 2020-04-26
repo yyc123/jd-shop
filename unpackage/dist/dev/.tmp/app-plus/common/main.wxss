@@ -1198,7 +1198,7 @@ to {
 	text-align: center
 }
 .cu-list.menu-avatar>.cu-item .action view+view {
-	margin-top: 10rpx
+	margin-top: 10rpx;
 }
 .cu-list.menu-avatar.comment>.cu-item .content {
 	position: relative;
@@ -1539,6 +1539,9 @@ to {
 .cu-bar.btn-group {
 	-webkit-justify-content: space-around;
 	        justify-content: space-around;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
 }
 .cu-bar.btn-group button {
 	padding: 20rpx 32rpx;
@@ -1629,7 +1632,7 @@ to {
 	overflow: initial;
 }
 .cu-bar.tabbar.shop .action {
-	width: 140rpx;
+	width: 100rpx;
 	-webkit-box-flex: initial;
 	-webkit-flex: initial;
 	        flex: initial;
@@ -1681,8 +1684,8 @@ to {
 }
 .cu-bar.tabbar .btn-group {
 	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	        flex: 1;
+	-webkit-flex: auto;
+	        flex: auto;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -2400,10 +2403,10 @@ to {
 	-webkit-transform: translateX(0%);
 	        transform: translateX(0%);
 }
-.cu-modal .cu-dialog>.cu-bar:first-child .action{
-  min-width: 100rpx;
-  margin-right: 0;
-  min-height: 100rpx;
+.cu-modal .cu-dialog>.cu-bar:first-child .action {
+	min-width: 100rpx;
+	margin-right: 0;
+	min-height: 100rpx;
 }
 
 /* ==================
@@ -4561,12 +4564,12 @@ scroll-view.cu-steps .cu-item {
 }
 @font-face {
   font-family: 'iconfont';  /* project id 1767761 */
-  src: url('//at.alicdn.com/t/font_1767761_sgxrpb43glh.eot');
-  src: url('//at.alicdn.com/t/font_1767761_sgxrpb43glh.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1767761_sgxrpb43glh.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1767761_sgxrpb43glh.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1767761_sgxrpb43glh.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1767761_sgxrpb43glh.svg#iconfont') format('svg');
+  src: url('https://at.alicdn.com/t/font_1767761_sgxrpb43glh.eot');
+  src: url('https://at.alicdn.com/t/font_1767761_sgxrpb43glh.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_1767761_sgxrpb43glh.woff2') format('woff2'),
+  url('https://at.alicdn.com/t/font_1767761_sgxrpb43glh.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_1767761_sgxrpb43glh.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_1767761_sgxrpb43glh.svg#iconfont') format('svg');
 }
 .iconfont {
 	font-family: "iconfont" !important;
