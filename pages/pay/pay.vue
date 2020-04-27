@@ -111,7 +111,12 @@
 
 		},
 		onLoad(options) {
-			 this.payMoney = options.money.toString();
+			this.payMoney = options.money.toString();
+			//存贮订单,下次可提醒跳转付款
+			uni.setStorage({
+				key: 'order',
+				data: this.payMoney
+			})
 		},
 
 		methods: {
@@ -121,13 +126,15 @@
 			},
 			//确认支付
 			confirm: async function() {
-				// uni.redirectTo({
-				// 	url: '/pages/money/paySuccess'
-				// })
+				try {
+				    uni.removeStorageSync('order');
+				} catch (e) {
+					console.log(e);
+				}
 				uni.showModal({
 					title: '支付结果',
 					showCancel: false,
-					content:'成功',
+					content: '成功',
 					success: function(res) {
 						if (res.confirm) {
 							uni.navigateBack({

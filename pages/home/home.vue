@@ -50,12 +50,12 @@
 			<view class="cu-item padding-xs" v-for="(item,index) in couponsList" :key="index" v-if="index<3*2" @tap="getcoupons">
 				<view class="bg-gradual-orange padding-xs flex align-center">
 					<view class="left">
-					
+
 						<view class="text-xl ">
 							{{item.discountType==0?'¥'+item.discount:item.discount+'折'}}
 						</view>
 						<text class="text-xs ">满{{item.quota}}可用</text>
-						
+
 						<!-- <view class="text-xs">
 						{{item.limitStr}}
 					</view> -->
@@ -250,6 +250,29 @@
 			this.loadData();
 			this.loadSecondData();
 			this.loadRecommendList();
+			uni.getStorage({
+				key: 'order',
+				success: res => {
+					console.log(res);
+					uni.showModal({
+						title: '提示',
+						content: '您当前还有未支付的订单,是否前往支付?',
+						success: function(r) {
+						
+							if (r.confirm) {
+								console.log(res.data);
+								uni.navigateTo({
+									url: '../pay/pay?money='+res.data
+									
+								})
+							}
+						}
+					});
+				},
+				fail: err => {
+					console.log(err);
+				}
+			})
 		},
 		computed: {
 			activeTitle() {
@@ -778,6 +801,7 @@
 			z-index: 2;
 		}
 	}
+
 	.right {
 		width: 20px;
 		line-height: 1.1;

@@ -269,4 +269,8 @@
   position: absolute;
   z-index: 2;
 }
+.right {
+  width: 20px;
+  line-height: 1.1;
+}
 
